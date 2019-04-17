@@ -10,8 +10,9 @@ registerServiceWorker();
 
 const getTwiqqs = async () => {
   const response = await fetch('https://3882ls4880.execute-api.eu-west-1.amazonaws.com/test/twiqqs/something');
-  const json = await JSON.stringify(response.json());
-  console.log(json);
+  const data = await response.json();
+  return data;
 }
 
-getTwiqqs();
+getTwiqqs()
+  .then(data => console.log(data));
