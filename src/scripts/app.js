@@ -1,4 +1,4 @@
-'use strict';
+import * as nav from './navigation.js';
 
 const registerServiceWorker = async () => {
   if ('serviceWorker' in navigator) {
@@ -14,5 +14,15 @@ const getTwiqqs = async () => {
   return data;
 }
 
+const getTopics = async () => {
+  // const response = await fetch('https://3882ls4880.execute-api.eu-west-1.amazonaws.com/test/topics');
+  // const data = await response.json();
+  // return data;
+  return await Promise.resolve([{ name: 'Serverless' }, { name: 'General' }]);
+}
+
 getTwiqqs()
   .then(data => console.log(data));
+
+getTopics()
+  .then(nav.updateUi);
