@@ -38,12 +38,11 @@ aside {
   color: var(--light, black);
   background-color: var(--dark, black);
   height: 100%;
-}
-
-aside a {
-  color: var(--light, black);
+  width: 200px;
+  box-sizing: border-box;
 }
 
 .container {
+  box-sizing: border-box;
   padding: var(--space-m);
 }

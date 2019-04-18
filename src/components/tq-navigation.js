@@ -8,7 +8,8 @@ class TqNav extends HTMLElement {
       <style>
         nav {
           display: block;
-          min-width: 200px;
+          overflow-x: hidden;
+          width: calc(200px-var(--space-m));
           background-color: var(--dark, black);
         }
         a {
@@ -18,12 +19,17 @@ class TqNav extends HTMLElement {
           text-decoration: none;
         }
         .skeleton {
-          background: rgba(0,0,0,0.1);
+          background: rgba(255,255,255,0.3);
           width: 200px;
           color: transparent;
         }
       </style>
       <nav>
+        <a href="#abc" class="skeleton">|</a>
+        <a href="#abc" class="skeleton">|</a>
+        <a href="#abc" class="skeleton">|</a>
+        <a href="#abc" class="skeleton">|</a>
+        <a href="#abc" class="skeleton">|</a>
         <a href="#abc" class="skeleton">|</a>
         <a href="#abc" class="skeleton">|</a>
       </nav>
