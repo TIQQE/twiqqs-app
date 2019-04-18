@@ -1,4 +1,5 @@
-import * as nav from './navigation.js';
+import { } from '../components/tq-modal.js';
+import { } from '../components/tq-navigation.js';
 
 const registerServiceWorker = async () => {
   if ('serviceWorker' in navigator) {
@@ -25,4 +26,7 @@ getTwiqqs()
   .then(data => console.log(data));
 
 getTopics()
-  .then(nav.updateUi);
+  .then(items => {
+    let tqNav = document.querySelector('tq-nav');
+    tqNav.updateUi(items, tqNav);
+  });

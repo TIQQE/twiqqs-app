@@ -3,8 +3,8 @@
   --dark: #262F34; 
   --light: #fff; 
   --chocolate: #615049;
-  --padding-s: 8px;
-  --padding-m: 16px;
+  --space-s: 8px;
+  --space-m: 16px;
 }
 
 /**/
@@ -19,7 +19,7 @@ body {
 }
 
 #topbar {
-  padding: var(--padding-m);
+  padding: var(--space-m);
   background: var(--dark);
   color: var(--light);
 }
@@ -30,7 +30,7 @@ body {
 }
 
 #content-container {
-  padding: var(--padding-m);
+  padding: var(--space-m);
   max-width: 1024px;
   margin: auto 0;
 
