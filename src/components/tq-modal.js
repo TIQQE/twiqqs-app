@@ -103,4 +103,4 @@ class Modal extends HTMLElement {
     this._modal.style.display = 'none';
   }
 }
-export const define = customElements.define('tq-modal', Modal);
+export default customElements.define('tq-modal', Modal);

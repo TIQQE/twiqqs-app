@@ -8,12 +8,13 @@ class TqNav extends HTMLElement {
       <style>
         nav {
           display: block;
+          min-width: 200px;
+          background-color: var(--dark, black);
         }
         a {
-          color: var(--dark, black);
           display: block;
-          padding: var(--space-s);
-          margin: var(--space-s);
+          color: var(--light, black);
+          margin: var(--space-s) 0;
           text-decoration: none;
         }
         .skeleton {
@@ -42,4 +43,4 @@ class TqNav extends HTMLElement {
     }
   }
 }
-customElements.define('tq-nav', TqNav);
+export default customElements.define('tq-nav', TqNav);

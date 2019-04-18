@@ -18,21 +18,32 @@ body {
   color: var(--dark);
 }
 
-#topbar {
-  padding: var(--space-m);
-  background: var(--dark);
-  color: var(--light);
-}
-
-#topbar h1 {
-  margin: 0;
-  padding: 0;
-}
-
 #content-container {
-  padding: var(--space-m);
   max-width: 1024px;
   margin: auto 0;
-
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 10px;
+  width: 100vw;
+  height: 100vh;
 }
 
+h1 {
+  margin: 0;
+  padding: 0;
+  text-decoration: underline;
+}
+
+aside {
+  color: var(--light, black);
+  background-color: var(--dark, black);
+  height: 100%;
+}
+
+aside a {
+  color: var(--light, black);
+}
+
+.container {
+  padding: var(--space-m);
+}
