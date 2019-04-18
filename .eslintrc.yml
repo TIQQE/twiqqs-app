@@ -8,4 +8,6 @@ globals:
 parserOptions:
   ecmaVersion: 2018
   sourceType: module
-rules: {}
+rules: {
+  "space-before-function-paren": false
+}

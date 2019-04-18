@@ -1,5 +1,6 @@
 import { } from '../components/tq-navigation.js';
-import { } from '../components/tq-modal.js';
+import { } from '../components/tq-message-list.js';
+import { getTopics, getTwiqqs } from './twiqqsRepo.js';
 
 const registerServiceWorker = async () => {
   if ('serviceWorker' in navigator) {
@@ -9,23 +10,8 @@ const registerServiceWorker = async () => {
 }
 registerServiceWorker();
 
-const getTwiqqs = async () => {
-  const response = await fetch('https://3882ls4880.execute-api.eu-west-1.amazonaws.com/test/twiqqs/something');
-  const data = await response.json();
-  return data;
-}
-
-const getTopics = async () => {
-  const response = await fetch('https://3882ls4880.execute-api.eu-west-1.amazonaws.com/test/topics');
-  const data = await response.json();
-  return data;
-}
-
 getTwiqqs()
-  .then(data => console.log(data));
+  .then(data => document.querySelector('tq-message-list').data = data);
 
 getTopics()
-  .then(items => {
-    let tqNav = document.querySelector('tq-nav');
-    tqNav.updateUi(items, tqNav);
-  });
+  .then(data => document.querySelector('tq-nav').data = data);

@@ -1,9 +1,9 @@
 class Modal extends HTMLElement {
   constructor() {
-    super();
-    this._modalVisible = false;
-    this._modal;
-    this.attachShadow({ mode: 'open' });
+    super()
+    this._modalVisible = false
+    this._modal
+    this.attachShadow({ mode: 'open' })
     this.shadowRoot.innerHTML = `
       <style>
           /* The Modal (background) */
@@ -85,22 +85,22 @@ class Modal extends HTMLElement {
       `
   }
   connectedCallback() {
-    this.style.display = 'block'; // show the modal
-    this._modal = this.shadowRoot.querySelector(".modal");
-    this.shadowRoot.querySelector("button").addEventListener('click', this._showModal.bind(this));
-    this.shadowRoot.querySelector(".close").addEventListener('click', this._hideModal.bind(this));
+    this.style.display = 'block' // show the modal
+    this._modal = this.shadowRoot.querySelector('.modal')
+    this.shadowRoot.querySelector('button').addEventListener('click', this._showModal.bind(this))
+    this.shadowRoot.querySelector('.close').addEventListener('click', this._hideModal.bind(this))
   }
   disconnectedCallback() {
-    this.shadowRoot.querySelector("button").removeEventListener('click', this._showModal);
-    this.shadowRoot.querySelector(".close").removeEventListener('click', this._hideModal);
+    this.shadowRoot.querySelector('button').removeEventListener('click', this._showModal)
+    this.shadowRoot.querySelector('.close').removeEventListener('click', this._hideModal)
   }
   _showModal() {
-    this._modalVisible = true;
-    this._modal.style.display = 'block';
+    this._modalVisible = true
+    this._modal.style.display = 'block'
   }
   _hideModal() {
-    this._modalVisible = false;
-    this._modal.style.display = 'none';
+    this._modalVisible = false
+    this._modal.style.display = 'none'
   }
 }
-export default customElements.define('tq-modal', Modal);
+export default customElements.define('tq-modal', Modal)

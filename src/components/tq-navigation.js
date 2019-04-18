@@ -1,9 +1,18 @@
 class TqNav extends HTMLElement {
+  get data() {
+    return this._data;
+  }
+  set data(data) {
+    this._data = data;
+    this.render();
+  }
+
   constructor() {
-    super();
-    this.nav;
-    this.items = [];
-    this.attachShadow({ mode: 'open' });
+    super()
+    this.items = []
+    this._data;
+    this.render = this.render.bind(this)
+    this.attachShadow({ mode: 'open' })
     this.shadowRoot.innerHTML = `
       <style>
         nav {
@@ -36,17 +45,17 @@ class TqNav extends HTMLElement {
       `
   }
   connectedCallback() {
-    console.log('Connected component');
-    this.nav = this.shadowRoot.querySelector("nav");
+    console.log('Connected component')
+    this.nav = this.shadowRoot.querySelector('nav')
   }
   disconnectedCallback() {
-    console.log('Disconnected component');
+    console.log('Disconnected component')
   }
-  updateUi(items, self) {
-    self.nav.innerHTML = '';
-    for (let item of items) {
-      self.nav.innerHTML += `<a href="#${item.name}">${item.name}</a>`;
+  render() {
+    this.nav.innerHTML = ''
+    for (let item of this._data) {
+      this.nav.innerHTML += `<a href="#${item.name}">${item.name}</a>`
     }
   }
 }
-export default customElements.define('tq-nav', TqNav);
+export default customElements.define('tq-nav', TqNav)
