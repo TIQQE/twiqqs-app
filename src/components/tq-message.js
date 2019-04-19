@@ -22,20 +22,27 @@ class TqMessage extends HTMLElement {
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.innerHTML = `
       <style>
-        div {
+        .message {
           display: block;
           min-height: 20px;
-          border: 1px solid rgba(0,0,0,0.3);
+          background: rgba(0,0,0,0.03);
           padding: var(--space-m);
-          margin: var(--space-m) 0;
+          margin: 0 0 var(--space-s) 0;
+          display: grid;
+          grid-template-columns: auto 1fr;
+          grid-gap: var(--space-s);
+        }
+        .img {
+          width: 40px;
+          height: 40px;
         }
       </style>
-      <div>
+      <div class='message'>
         <img src='${this.getImage()}' class='img' />
         <div>
           <span class='name'>${this.getUserName()}</span>
           <span class='time'>${this.getCreated()}</span>
-          <div class='message'>${this.getMessageContent()}</div>
+          <div class='content'>${this.getMessageContent()}</div>
         </div>
       </div>`
   }
@@ -44,7 +51,7 @@ class TqMessage extends HTMLElement {
     this.imgElm = this.shadowRoot.querySelector('.img')
     this.nameElm = this.shadowRoot.querySelector('.name')
     this.timeElm = this.shadowRoot.querySelector('.time')
-    this.messageElm = this.shadowRoot.querySelector('.message')
+    this.messageElm = this.shadowRoot.querySelector('.content')
   }
 
   disconnectedCallback() {

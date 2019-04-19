@@ -36,7 +36,10 @@ class TqMessageList extends HTMLElement {
     this.messageList.innerHTML = '';
     for (let message in this._data) {
       console.log(message);
-      let fake = { user: { name: 'Name', img: '' }, message: { created: new Date().toUTCString(), content: 'yml ...' } }
+      let fake = {
+        user: { name: 'Name', img: 'https://tiqqe.com/wp-content/uploads/2019/01/3B64B9BB-2F05-4168-AE03-E21A6BFC1ED9-640x543.png' },
+        message: { created: new Date().toUTCString(), content: 'yml ...' }
+      }
       fake = encodeURI(JSON.stringify(fake));
       this.messageList.innerHTML += `<tq-message data="${fake}"></tq-message>`;
     }
