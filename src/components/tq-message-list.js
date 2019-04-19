@@ -11,8 +11,8 @@ class TqMessageList extends HTMLElement {
 
   constructor() {
     super()
-    this.messageList;
     this._data;
+    this.messageList;
     this.render = this.render.bind(this)
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.innerHTML = `
@@ -35,7 +35,10 @@ class TqMessageList extends HTMLElement {
   render() {
     this.messageList.innerHTML = '';
     for (let message in this._data) {
-      this.messageList.innerHTML += `<tq-message data="${message}"></tq-message>`;
+      console.log(message);
+      let fake = { user: { name: 'Name', img: '' }, message: { created: new Date().toUTCString(), content: 'yml ...' } }
+      fake = encodeURI(JSON.stringify(fake));
+      this.messageList.innerHTML += `<tq-message data="${fake}"></tq-message>`;
     }
   }
 }
