@@ -1,14 +1,32 @@
 import { } from '../components/tq-navigation.js';
 import { } from '../components/tq-message-list.js';
 import { getTopics, getTwiqqs } from './twiqqsRepo.js';
+import { displayNotification, registerServiceWorker, requestPushPermission } from './serviceWorkerHelper.js';
 
-const registerServiceWorker = async () => {
-  if ('serviceWorker' in navigator) {
-    await navigator.serviceWorker.register('./service-worker.js');
-    console.log('Service Worker Registered');
-  }
-}
-registerServiceWorker();
+registerServiceWorker()
+  .then(() => {
+    requestPushPermission();
+
+    displayNotification('My Title', {
+      body: 'Here is a notification body!',
+      icon: 'images/icons/icon-192x192.png',
+      vibrate: [100, 50, 100],
+      data: {
+        dateOfArrival: Date.now(),
+        primaryKey: 1
+      },
+      actions: [
+        {
+          action: 'explore', title: 'Explore this new world',
+          icon: 'images/icons/icon-72x72.png'
+        },
+        {
+          action: 'close', title: 'Close notification',
+          icon: 'images/icons/icon-72x72.png'
+        },
+      ]
+    });
+  });
 
 getTwiqqs()
   .then(data => document.querySelector('tq-message-list').data = data);

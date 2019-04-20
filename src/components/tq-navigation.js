@@ -25,9 +25,10 @@ class TqNav extends HTMLElement {
           color: var(--light, black);
           margin: var(--space-s) 0;
           text-decoration: none;
+          padding: var(--space-s);
         }
         a:hover {
-          text-decoration: underline;
+          background: rgba(255,255,255,0.1);
         }
         .skeleton {
           background: rgba(255,255,255,0.3);

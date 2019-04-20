@@ -13,7 +13,7 @@
 // limitations under the License.
 
 var dataCacheName = 'twiqqsData'
-var cacheName = 'twiqqs'
+var cacheName = 'twiqqs-v2'
 var filesToCache = [
   '/',
   '/index.html',
@@ -21,7 +21,7 @@ var filesToCache = [
   '/styles/main.css'
 ]
 
-self.addEventListener('install', function (e) {
+self.addEventListener('install', (e) => {
   console.log('[ServiceWorker] Install')
   e.waitUntil(
     caches.open(cacheName).then(function (cache) {
@@ -46,7 +46,7 @@ self.addEventListener('activate', function (e) {
   return self.clients.claim()
 })
 
-self.addEventListener('fetch', function (e) {
+self.addEventListener('fetch', (e) => {
   console.log('[Service Worker] Fetch', e.request.url)
   var dataUrl = 'https://3882ls4880.execute-api.eu-west-1.amazonaws.com/test/twiqqs/something'
   if (e.request.url.indexOf(dataUrl) > -1) {
@@ -78,3 +78,23 @@ self.addEventListener('fetch', function (e) {
     )
   }
 })
+
+self.addEventListener('notificationclose', (e) => {
+  var notification = e.notification;
+  var primaryKey = notification.data.primaryKey;
+
+  console.log('Closed notification: ' + primaryKey);
+});
+
+self.addEventListener('notificationclick', (e) => {
+  var notification = e.notification;
+  var primaryKey = notification.data.primaryKey;
+  var action = e.action;
+
+  if (action === 'close') {
+    notification.close();
+  } else {
+    clients.openWindow('http://www.example.com');
+    notification.close();
+  }
+});
