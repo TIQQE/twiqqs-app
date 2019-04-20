@@ -18,7 +18,6 @@ class TqNav extends HTMLElement {
         nav {
           display: block;
           overflow-x: hidden;
-          width: calc(200px-var(--space-m));
           background-color: var(--dark, black);
         }
         a {
@@ -32,7 +31,7 @@ class TqNav extends HTMLElement {
         }
         .skeleton {
           background: rgba(255,255,255,0.3);
-          width: 200px;
+          width: 100px;
           color: transparent;
           position: relative;
         }
