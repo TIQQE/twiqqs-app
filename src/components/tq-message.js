@@ -35,10 +35,19 @@ class TqMessage extends HTMLElement {
         .img {
           width: 40px;
           height: 40px;
+          border-radius: 4px;
+        }
+        .name {
+          font-weight:700;
+          font-size: 80%;
+        }
+        .time {
+          font-weight:100;
+          font-size: 80%;
         }
       </style>
       <div class='message'>
-        <img src='${this.getImage()}' class='img' />
+        <img alt='user image of ${this.getUserName()}' src='${this.getImage()}' class='img' />
         <div>
           <span class='name'>${this.getUserName()}</span>
           <span class='time'>${this.getCreated()}</span>

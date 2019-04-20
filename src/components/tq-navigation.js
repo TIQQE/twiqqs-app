@@ -27,10 +27,14 @@ class TqNav extends HTMLElement {
           margin: var(--space-s) 0;
           text-decoration: none;
         }
+        a:hover {
+          text-decoration: underline;
+        }
         .skeleton {
           background: rgba(255,255,255,0.3);
           width: 200px;
           color: transparent;
+          position: relative;
         }
       </style>
       <nav>
@@ -54,7 +58,7 @@ class TqNav extends HTMLElement {
   render() {
     this.nav.innerHTML = ''
     for (let item of this._data) {
-      this.nav.innerHTML += `<a href="#${item.name}">${item.name}</a>`
+      this.nav.innerHTML += `<a href="#${item.name}">#${item.name}</a>`
     }
   }
 }
