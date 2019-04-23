@@ -1,12 +1,11 @@
 import { } from '../components/tq-navigation.js';
 import { } from '../components/tq-message-list.js';
 import { getTopics, getTwiqqs } from './twiqqsRepo.js';
-import { displayNotification, registerServiceWorker, requestPushPermission } from './serviceWorkerHelper.js';
+import { displayNotification, registerServiceWorker, initPush } from './serviceWorkerHelper.js';
 
 registerServiceWorker()
-  .then(() => {
-    requestPushPermission();
-
+  .then(async () => {
+    let sub = await initPush();
     displayNotification('My Title', {
       body: 'Here is a notification body!',
       icon: 'images/icons/icon-192x192.png',

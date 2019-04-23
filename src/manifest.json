@@ -48,5 +48,7 @@
       "type": "image/png"
     }
   ],
-  "splash_pages": null
+  "splash_pages": null,
+  "gcm_sender_id": "103953800507",
+  "applicationServerKey": "BEkTFgQP117KSXQwKGi1YMmwqyrY-8nWwYLZOiwlOmADh1WfvExnUF5gi6KZb4e--yLc3E9YQO0GbhIe1Pg7K2Q"
 }
