@@ -1,7 +1,7 @@
 import { } from '../components/tq-navigation.js';
 import { } from '../components/tq-message-list.js';
 import { } from '../components/tq-login.js';
-import { getTopics, getTwiqqs } from './twiqqsRepo.js';
+import { getTopics, getTwiqqs, createWebSocketConnection } from './twiqqsRepo.js';
 import { displayNotification, registerServiceWorker, initPush } from './serviceWorkerHelper.js';
 
 registerServiceWorker()
@@ -27,6 +27,8 @@ registerServiceWorker()
       ]
     });
   });
+
+createWebSocketConnection();
 
 getTwiqqs()
   .then(data => document.querySelector('tq-message-list').data = data);
