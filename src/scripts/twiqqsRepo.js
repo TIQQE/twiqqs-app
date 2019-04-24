@@ -12,8 +12,9 @@ export const getTopics = async () => {
 
 export const createWebSocketConnection = () => {
   let jwt = JSON.parse(localStorage.getItem('jwt'));
+
   // Create WebSocket connection.
-  const socket = new WebSocket(`wss://us7h9yw113.execute-api.eu-west-1.amazonaws.com/test?id_token=${jwt.id_token}`);
+  const socket = new WebSocket(`wss://us9g1zlouc.execute-api.eu-west-1.amazonaws.com/test?id_token=${jwt.id_token}`);
 
   // Connection opened
   socket.addEventListener('open', (event) => {
