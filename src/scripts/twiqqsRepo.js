@@ -11,16 +11,17 @@ export const getTopics = async () => {
 }
 
 export const createWebSocketConnection = () => {
+  let jwt = JSON.parse(localStorage.getItem('jwt'));
   // Create WebSocket connection.
-  const socket = new WebSocket('ws://localhost:8080');
+  const socket = new WebSocket(`wss://us7h9yw113.execute-api.eu-west-1.amazonaws.com/test?id_token=${jwt.id_token}`);
 
   // Connection opened
-  socket.addEventListener('open', function (event) {
-    socket.send('Hello Server!');
+  socket.addEventListener('open', (event) => {
+    socket.send(`{"action":"Parse me.", "message": "Just do it!"}`);
   });
 
   // Listen for messages
-  socket.addEventListener('message', function (event) {
+  socket.addEventListener('message', (event) => {
     console.log('Message from server ', event.data);
   });
 }

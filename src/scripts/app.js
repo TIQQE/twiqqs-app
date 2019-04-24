@@ -7,25 +7,25 @@ import { displayNotification, registerServiceWorker, initPush } from './serviceW
 registerServiceWorker()
   .then(async () => {
     let sub = await initPush();
-    displayNotification('My Title', {
-      body: 'Here is a notification body!',
-      icon: 'images/icons/icon-192x192.png',
-      vibrate: [100, 50, 100],
-      data: {
-        dateOfArrival: Date.now(),
-        primaryKey: 1
-      },
-      actions: [
-        {
-          action: 'explore', title: 'Explore this new world',
-          icon: 'images/icons/icon-72x72.png'
-        },
-        {
-          action: 'close', title: 'Close notification',
-          icon: 'images/icons/icon-72x72.png'
-        },
-      ]
-    });
+    // displayNotification('My Title', {
+    //   body: 'Here is a notification body!',
+    //   icon: 'images/icons/icon-192x192.png',
+    //   vibrate: [100, 50, 100],
+    //   data: {
+    //     dateOfArrival: Date.now(),
+    //     primaryKey: 1
+    //   },
+    //   actions: [
+    //     {
+    //       action: 'explore', title: 'Explore this new world',
+    //       icon: 'images/icons/icon-72x72.png'
+    //     },
+    //     {
+    //       action: 'close', title: 'Close notification',
+    //       icon: 'images/icons/icon-72x72.png'
+    //     },
+    //   ]
+    // });
   });
 
 createWebSocketConnection();

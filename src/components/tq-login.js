@@ -39,14 +39,15 @@ class TqLogin extends HTMLElement {
   }
 
   getButton() {
+    let clientId = '2361f7ndpia7640dqacs83ml1n'
     if (this.isLoggedIn) {
       return `
-      <a href="https://twiqqs-test.auth.eu-west-1.amazoncognito.com/logout?response_type=token&client_id=421dd1i7ddaima5fchhdmcd4p9&redirect_uri=http://localhost:3000">
+      <a href="https://twiqqs-test.auth.eu-west-1.amazoncognito.com/logout?response_type=token&client_id=${clientId}&redirect_uri=http://localhost:3000">
         Logout
       </a>`
     } else {
       return `
-      <a href="https://twiqqs-test.auth.eu-west-1.amazoncognito.com/login?response_type=token&client_id=421dd1i7ddaima5fchhdmcd4p9&redirect_uri=http://localhost:3000">
+      <a href="https://twiqqs-test.auth.eu-west-1.amazoncognito.com/login?response_type=token&client_id=${clientId}&redirect_uri=http://localhost:3000">
         Login
       </a>`
     }
