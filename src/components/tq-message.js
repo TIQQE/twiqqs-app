@@ -14,53 +14,12 @@ class TqMessage extends HTMLElement {
   constructor() {
     super()
     this._data = JSON.parse(decodeURI(this.getAttribute('data')));
-    this.imgElm;
-    this.nameElm;
-    this.timeElm;
-    this.messageElm;
     this.render = this.render.bind(this)
     this.attachShadow({ mode: 'open' })
-    this.shadowRoot.innerHTML = `
-      <style>
-        .message {
-          display: block;
-          min-height: 20px;
-          background: rgba(0,0,0,0.03);
-          padding: var(--space-m);
-          margin: 0 0 var(--space-s) 0;
-          display: grid;
-          grid-template-columns: auto 1fr;
-          grid-gap: var(--space-s);
-        }
-        .img {
-          width: 40px;
-          height: 40px;
-          border-radius: 4px;
-        }
-        .name {
-          font-weight:700;
-          font-size: 80%;
-        }
-        .time {
-          font-weight:100;
-          font-size: 80%;
-        }
-      </style>
-      <div class='message'>
-        <img alt='user image of ${this.getUserName()}' src='${this.getImage()}' class='img' />
-        <div>
-          <span class='name'>${this.getUserName()}</span>
-          <span class='time'>${this.getCreated()}</span>
-          <div class='content'>${this.getMessageContent()}</div>
-        </div>
-      </div>`
+    this.render()
   }
   connectedCallback() {
     console.log('Connected tq-message')
-    this.imgElm = this.shadowRoot.querySelector('.img')
-    this.nameElm = this.shadowRoot.querySelector('.name')
-    this.timeElm = this.shadowRoot.querySelector('.time')
-    this.messageElm = this.shadowRoot.querySelector('.content')
   }
 
   disconnectedCallback() {
@@ -86,11 +45,40 @@ class TqMessage extends HTMLElement {
     return (this.data && this.data.message && this.data.message.content) ? this.data.message.content : '';
   }
   render() {
-    // One optimization could be to only update if the data is different from the current. 
-    this.imgElm.src = this.data.user.img;
-    this.nameElm.innerText = this.data.user.name;
-    this.timeElm.innerText = this.data.message.created;
-    this.messageElm.innerHTML = this.data.message.content;
+    this.shadowRoot.innerHTML = `
+    <style>
+      .message {
+        display: block;
+        min-height: 20px;
+        background: rgba(0,0,0,0.03);
+        padding: var(--space-m);
+        margin: 0 0 var(--space-s) 0;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-gap: var(--space-s);
+      }
+      .img {
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+      }
+      .name {
+        font-weight:700;
+        font-size: 80%;
+      }
+      .time {
+        font-weight:100;
+        font-size: 80%;
+      }
+    </style>
+    <div class='message'>
+      <img alt='user image of ${this.getUserName()}' src='${this.getImage()}' class='img' />
+      <div>
+        <span class='name'>${this.getUserName()}</span>
+        <span class='time'>${this.getCreated()}</span>
+        <div class='content'>${this.getMessageContent()}</div>
+      </div>
+    </div>`
   }
 }
 export default customElements.define('tq-message', TqMessage)

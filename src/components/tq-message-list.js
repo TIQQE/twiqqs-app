@@ -15,6 +15,28 @@ class TqMessageList extends HTMLElement {
     this.messageList;
     this.render = this.render.bind(this)
     this.attachShadow({ mode: 'open' })
+    this.render()
+  }
+  connectedCallback() {
+    console.log('Connected tq-message')
+  }
+  disconnectedCallback() {
+    console.log('Disconnected tq-message')
+  }
+  getMessageComponents() {
+    let html = '';
+    for (let message in this._data) {
+      let fake = {
+        user: { name: 'Name', img: 'https://tiqqe.com/wp-content/uploads/2019/01/3B64B9BB-2F05-4168-AE03-E21A6BFC1ED9-640x543.png' },
+        message: { created: new Date().toUTCString(), content: 'yml ...' }
+      }
+      fake = encodeURI(JSON.stringify(fake));
+      html += `<tq-message data="${fake}"></tq-message>`;
+    }
+    return html;
+  }
+
+  render() {
     this.shadowRoot.innerHTML = `
       <style>
         div {
@@ -22,27 +44,8 @@ class TqMessageList extends HTMLElement {
           min-height: 20px;
         }
       </style>
-      <div class='message-list'></div>
+      ${this.getMessageComponents()}
       `
-  }
-  connectedCallback() {
-    console.log('Connected tq-message')
-    this.messageList = this.shadowRoot.querySelector('.message-list')
-  }
-  disconnectedCallback() {
-    console.log('Disconnected tq-message')
-  }
-  render() {
-    this.messageList.innerHTML = '';
-    for (let message in this._data) {
-      console.log(message);
-      let fake = {
-        user: { name: 'Name', img: 'https://tiqqe.com/wp-content/uploads/2019/01/3B64B9BB-2F05-4168-AE03-E21A6BFC1ED9-640x543.png' },
-        message: { created: new Date().toUTCString(), content: 'yml ...' }
-      }
-      fake = encodeURI(JSON.stringify(fake));
-      this.messageList.innerHTML += `<tq-message data="${fake}"></tq-message>`;
-    }
   }
 }
 export default customElements.define('tq-message-list', TqMessageList)
