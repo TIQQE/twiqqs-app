@@ -42,23 +42,33 @@ class TqSend extends HTMLElement {
 
   typing(e) {
     if (e.which === 13 && !e.shiftKey) {
-      console.log('enter and not shift')
-    } else {
-      console.log('normal typing', e)
+      let message = this.messageBox.value;
+      let sendMessageEvent = new CustomEvent('sendMessage', { detail: message })
+      document.dispatchEvent(sendMessageEvent)
+      this.messageBox.value = '';
+      e.preventDefault();
     }
   }
 
   render() {
     this.shadowRoot.innerHTML = `
-      <style>
-        textarea {
-          display: block;
-          min-height: 20px;
-          width: 100%;
-          resize: none;
-        }
-      </style>
-      <textarea class="message-box"></textarea>
+    <style>
+      textarea {
+        display: block;
+        min-height: 20px;
+        width: 100%;
+        resize: none;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        font-size: 16px;
+        padding: var(--space-s);
+        margin: 0;
+        box-sizing: border-box;
+        border: 2px solid rgba(0,0,0,0.15);
+        border-radius: 8px;
+      }
+    </style>
+    <textarea class="message-box"></textarea>
     `
   }
 }

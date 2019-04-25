@@ -4,6 +4,7 @@
   --dark: #262F34; 
   --light: #fff; 
   --chocolate: #615049;
+  --light-gray: #f7f7f7;
   --space-s: 8px;
   --space-m: 16px;
 }
@@ -47,6 +48,7 @@ aside {
 .container {
   box-sizing: border-box;
   padding: var(--space-m);
+  position: relative;
 }
 
 tq-login {
@@ -56,4 +58,11 @@ tq-login {
   text-align: center;
   left:0;
   right:0
+}
+
+tq-send {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
 }

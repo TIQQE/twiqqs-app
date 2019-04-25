@@ -19,7 +19,18 @@ export const createWebSocketConnection = () => {
 
   // Connection opened
   socket.addEventListener('open', (event) => {
-    socket.send(`{"action":"Parse me.", "message": "Just do it!"}`);
+    console.log('Open!')
+  });
+
+  document.addEventListener("sendMessage", (e) => {
+    socket.send(`{"topic":"${location.hash.substring(1).trim()}", "message": "${e.detail}"}`)
+  });
+
+
+  // Error
+  socket.addEventListener('error', (event) => {
+    localStorage.removeItem('jwt')
+    document.querySelector('tq-login').render()
   });
 
   // Listen for messages
