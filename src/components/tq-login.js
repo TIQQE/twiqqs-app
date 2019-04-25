@@ -6,13 +6,11 @@ class TqLogin extends HTMLElement {
     this.isLoggedIn = false;
     this.render = this.render.bind(this)
     this.attachShadow({ mode: 'open' })
+    this.init()
     this.render()
   }
 
-  connectedCallback() {
-    document.addEventListener('login', (evt) => {
-      console.log('login event', evt)
-    })
+  init() {
     let hash = window.location.hash;
     if (hash.indexOf('access_token') !== -1) {
       let parts = location.hash.substring(1).split('&')
@@ -24,30 +22,40 @@ class TqLogin extends HTMLElement {
 
       localStorage.setItem('jwt', JSON.stringify(jwt))
       location.hash = 'random'
+      this.isLoggedIn = true;
     } else {
-      console.log(JSON.parse(localStorage.getItem('jwt')))
+      let jwt = JSON.parse(localStorage.getItem('jwt'))
+      this.isLoggedIn = !!jwt;
+      console.log(jwt)
     }
-    let loginEvent = new CustomEvent("login", {
-      bubbles: true,
-      cancelable: false,
-      composed: true
-    })
-    document.dispatchEvent(loginEvent)
+  }
+
+  connectedCallback() {
+    this.logoutBtn = this.shadowRoot.querySelector('.logout')
+    if (this.logoutBtn) {
+      this.logoutBtn.addEventListener('click', this.logout.bind(this))
+    }
   }
   disconnectedCallback() {
-    document.removeEventListener('login')
+    if (this.logoutBtn) {
+      this.logoutBtn.removeEventListener('click', this.logout)
+    }
+  }
+
+  logout() {
+    localStorage.removeItem('jwt')
   }
 
   getButton() {
     let clientId = '2361f7ndpia7640dqacs83ml1n'
     if (this.isLoggedIn) {
       return `
-      <a href="https://twiqqs-test.auth.eu-west-1.amazoncognito.com/logout?response_type=token&client_id=${clientId}&redirect_uri=http://localhost:3000">
+      <a class="btn logout" href="https://twiqqs-test.auth.eu-west-1.amazoncognito.com/logout?response_type=token&client_id=${clientId}&redirect_uri=http://localhost:3000">
         Logout
       </a>`
     } else {
       return `
-      <a href="https://twiqqs-test.auth.eu-west-1.amazoncognito.com/login?response_type=token&client_id=${clientId}&redirect_uri=http://localhost:3000">
+      <a class="btn login" href="https://twiqqs-test.auth.eu-west-1.amazoncognito.com/login?response_type=token&client_id=${clientId}&redirect_uri=http://localhost:3000">
         Login
       </a>`
     }
