@@ -8,13 +8,17 @@ class TqMessageList extends HTMLElement {
   set data(data) {
     this._data = data;
     this.render();
+
+    // Scroll to bottom when data is updated
+    let messageList = document.querySelector('tq-message-list')
+    messageList.scrollTop = messageList.scrollHeight
   }
 
   constructor() {
     super()
     this._data;
-    this.messageList;
     this.render = this.render.bind(this)
+    this.updateData = this.updateData.bind(this)
     this.attachShadow({ mode: 'open' })
     this.render()
   }
@@ -33,12 +37,12 @@ class TqMessageList extends HTMLElement {
   }
 
   getMessageComponents() {
-    if (!this.data) { return }
+    if (!this.data) { return '' }
     let html = '';
     for (let data of this.data) {
-      console.log(data)
+      let name = data.messageId ? data.messageId.split('@')[0] : 'Jane Doe'
       let msg = {
-        user: { name: data.messageId.split('@')[0], img: '' },
+        user: { name, img: 'images/man.png' },
         message: { created: new Date(data.messageId.split('#')[1]).toUTCString(), content: data.message }
       }
       msg = encodeURI(JSON.stringify(msg));

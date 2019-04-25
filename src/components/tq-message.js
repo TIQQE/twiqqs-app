@@ -73,7 +73,7 @@ class TqMessage extends HTMLElement {
       }
     </style>
     <div class='message'>
-      <img alt='user image of ${this.getUserName()}' src='images/man.png' class='img' />
+      <img alt='user image of ${this.getUserName()}' src='${this.getImage()}' class='img' />
       <div>
         <span class='name'>${this.getUserName()}</span>
         <span class='time'>${this.getCreated()}</span>

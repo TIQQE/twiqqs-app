@@ -31,7 +31,7 @@ body {
 
 h1 {
   margin: 0;
-  padding: 0;
+  padding: var(--space-s);
   text-decoration: underline;
 }
 
@@ -47,17 +47,18 @@ aside {
 
 .container {
   box-sizing: border-box;
-  padding: var(--space-m);
   position: relative;
+  height: 100vh;
 }
 
 tq-login {
   position: absolute;
-  bottom: var(--space-m);
-  display: block; 
-  text-align: center;
-  left:0;
-  right:0
+  display: flex;
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  justify-content: center;
+  align-items: center;
 }
 
 tq-send {
@@ -65,4 +66,10 @@ tq-send {
   bottom: 16px;
   left: 16px;
   right: 16px;
+}
+
+tq-message-list {
+  overflow: auto;
+  height: calc(100vh - 100px);
+  display: block;
 }

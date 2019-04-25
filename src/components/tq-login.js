@@ -74,6 +74,8 @@ class TqLogin extends HTMLElement {
           background: var(--dark);
           color: var(--light);
           text-decoration: none;
+          border: 2px solid rgba(255,255,255,0.15);
+          border-radius: var(--space-s);
         }
         .btn:hover {
           background: var(--chocolate);

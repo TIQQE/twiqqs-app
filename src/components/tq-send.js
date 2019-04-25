@@ -55,7 +55,7 @@ class TqSend extends HTMLElement {
     <style>
       textarea {
         display: block;
-        min-height: 20px;
+        height: 40px;
         width: 100%;
         resize: none;
         font-family: 'Roboto', sans-serif;
@@ -65,7 +65,11 @@ class TqSend extends HTMLElement {
         margin: 0;
         box-sizing: border-box;
         border: 2px solid rgba(0,0,0,0.15);
-        border-radius: 8px;
+        border-radius: var(--space-s);
+        outline:none;
+      }
+      textarea:focus {
+        border: 2px solid rgba(0,0,0,0.35);
       }
     </style>
     <textarea class="message-box"></textarea>
