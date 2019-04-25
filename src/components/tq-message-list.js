@@ -1,4 +1,5 @@
 import { } from './tq-message.js';
+import { getTwiqqs } from '../scripts/twiqqsRepo.js';
 
 class TqMessageList extends HTMLElement {
   get data() {
@@ -18,20 +19,30 @@ class TqMessageList extends HTMLElement {
     this.render()
   }
   connectedCallback() {
-    console.log('Connected tq-message')
+    this.updateData()
+    window.addEventListener("hashchange", this.updateData, false);
   }
+
+  async updateData() {
+    let result = await getTwiqqs()
+    this.data = result.Items
+  }
+
   disconnectedCallback() {
-    console.log('Disconnected tq-message')
+    window.removeEventListener("hashchange", this.updateData);
   }
+
   getMessageComponents() {
+    if (!this.data) { return }
     let html = '';
-    for (let message in this._data) {
-      let fake = {
-        user: { name: 'Name', img: 'https://tiqqe.com/wp-content/uploads/2019/01/3B64B9BB-2F05-4168-AE03-E21A6BFC1ED9-640x543.png' },
-        message: { created: new Date().toUTCString(), content: 'yml ...' }
+    for (let data of this.data) {
+      console.log(data)
+      let msg = {
+        user: { name: data.messageId.split('@')[0], img: '' },
+        message: { created: new Date(data.messageId.split('#')[1]).toUTCString(), content: data.message }
       }
-      fake = encodeURI(JSON.stringify(fake));
-      html += `<tq-message data="${fake}"></tq-message>`;
+      msg = encodeURI(JSON.stringify(msg));
+      html += `<tq-message data="${msg}"></tq-message>`;
     }
     return html;
   }

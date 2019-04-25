@@ -14,13 +14,18 @@ class TqNav extends HTMLElement {
     this.attachShadow({ mode: 'open' })
     this.render()
   }
+
   connectedCallback() {
     console.log('Connected component')
     this.nav = this.shadowRoot.querySelector('nav')
+    window.addEventListener("hashchange", this.render, false);
   }
+
   disconnectedCallback() {
     console.log('Disconnected component')
+    window.removeEventListener("hashchange", this.render);
   }
+
   render() {
     this.shadowRoot.innerHTML = `
       <style>
@@ -41,6 +46,9 @@ class TqNav extends HTMLElement {
         a:hover {
           background: rgba(255,255,255,0.1);
         }
+        a.active {
+          font-weight: 700;
+        }
         .skeleton {
           background: rgba(255,255,255,0.3);
           margin: var(--space-s) 0;
@@ -52,9 +60,10 @@ class TqNav extends HTMLElement {
       </style>
       <nav>
       ${(() => {
+        let topic = location.hash.substring(1).trim();
         let html = ''
         for (let item of this._data) {
-          html += `<a class="${item.class}" href="#${item.name}" >#${item.name}</a > `
+          html += `<a class="${item.class ? item.class : ''}${item.name === topic ? ' active' : ''}" href="#${item.name}" >#${item.name}</a > `
         }
         return html;
       })()}

@@ -31,8 +31,5 @@ registerServiceWorker()
 
 createWebSocketConnection();
 
-getTwiqqs()
-  .then(data => document.querySelector('tq-message-list').data = data);
-
 getTopics()
   .then(data => document.querySelector('tq-nav').data = data);

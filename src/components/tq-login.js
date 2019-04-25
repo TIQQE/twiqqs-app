@@ -69,7 +69,7 @@ class TqLogin extends HTMLElement {
           min-height: 20px;
         }
         .btn {
-          padding: var(--space-s) var(--space-m);
+          padding: var(--space-s) calc(var(--space-m)*2);
           border: 1px solid var(--light);
           background: var(--dark);
           color: var(--light);

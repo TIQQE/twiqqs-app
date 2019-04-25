@@ -1,5 +1,5 @@
 export const getTwiqqs = async () => {
-  const response = await fetch('https://pbkh6aqm1e.execute-api.eu-west-1.amazonaws.com/test/twiqqs/something')
+  const response = await fetch(`https://pbkh6aqm1e.execute-api.eu-west-1.amazonaws.com/test/twiqqs/${location.hash.substring(1)}`)
   const data = await response.json()
   return data
 }
@@ -26,7 +26,6 @@ export const createWebSocketConnection = () => {
     socket.send(`{"topic":"${location.hash.substring(1).trim()}", "message": "${e.detail}"}`)
   });
 
-
   // Error
   socket.addEventListener('error', (event) => {
     localStorage.removeItem('jwt')
@@ -36,5 +35,7 @@ export const createWebSocketConnection = () => {
   // Listen for messages
   socket.addEventListener('message', (event) => {
     console.log('Message from server ', event.data);
+    let messageList = document.querySelector('tq-message-list')
+    messageList.data = event.data;
   });
 }

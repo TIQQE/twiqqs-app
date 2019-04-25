@@ -56,6 +56,7 @@ class TqMessage extends HTMLElement {
         display: grid;
         grid-template-columns: auto 1fr;
         grid-gap: var(--space-s);
+        border-radius: var(--space-s);
       }
       .img {
         width: 40px;
