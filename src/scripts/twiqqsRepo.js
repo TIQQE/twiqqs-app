@@ -1,11 +1,20 @@
 export const getTwiqqs = async () => {
-  const response = await fetch(`https://pbkh6aqm1e.execute-api.eu-west-1.amazonaws.com/test/twiqqs/${location.hash.substring(1)}`)
+  const response = await fetch(
+    `https://pbkh6aqm1e.execute-api.eu-west-1.amazonaws.com/test/twiqqs/${location.hash.substring(1)}`, {
+      headers: {
+        'authorization': JSON.parse(localStorage.getItem('jwt')).id_token
+      }
+    })
   const data = await response.json()
   return data
 }
 
 export const getTopics = async () => {
-  const response = await fetch('https://pbkh6aqm1e.execute-api.eu-west-1.amazonaws.com/test/topics')
+  const response = await fetch('https://pbkh6aqm1e.execute-api.eu-west-1.amazonaws.com/test/topics', {
+    headers: {
+      'authorization': JSON.parse(localStorage.getItem('jwt')).id_token
+    }
+  })
   const data = await response.json()
   return data
 }
@@ -35,7 +44,14 @@ export const createWebSocketConnection = () => {
   // Listen for messages
   socket.addEventListener('message', (event) => {
     console.log('Message from server ', event.data);
-    let messageList = document.querySelector('tq-message-list')
-    messageList.data = event.data;
+    let messageList = document.querySelector('tq-message-list');
+    if (!Array.isArray(messageList.data)) { messageList.data = []; }
+    let clone = JSON.parse(JSON.stringify(messageList.data))
+
+    // Todo validate that it is a message
+    let message = JSON.parse(event.data);
+    clone.push(message);
+
+    messageList.data = clone;
   });
 }

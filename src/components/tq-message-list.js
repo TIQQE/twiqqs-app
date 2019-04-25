@@ -25,7 +25,7 @@ class TqMessageList extends HTMLElement {
 
   async updateData() {
     let result = await getTwiqqs()
-    this.data = result.Items
+    this.data = result
   }
 
   disconnectedCallback() {
