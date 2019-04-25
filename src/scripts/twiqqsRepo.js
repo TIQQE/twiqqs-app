@@ -12,10 +12,10 @@ export const getTopics = async () => {
 
 export const createWebSocketConnection = () => {
   let jwt = JSON.parse(localStorage.getItem('jwt'));
-  if (!jwt || !jwt.id_token) { return }
+  if (!jwt || !jwt.access_token) { return }
 
   // Create WebSocket connection.
-  const socket = new WebSocket(`wss://us9g1zlouc.execute-api.eu-west-1.amazonaws.com/test?id_token=${jwt.id_token}`);
+  const socket = new WebSocket(`wss://us9g1zlouc.execute-api.eu-west-1.amazonaws.com/test?access_token=${jwt.access_token}`);
 
   // Connection opened
   socket.addEventListener('open', (event) => {

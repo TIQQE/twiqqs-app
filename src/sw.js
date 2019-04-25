@@ -13,7 +13,7 @@
 // limitations under the License.
 
 var dataCacheName = 'twiqqsData'
-var cacheName = 'twiqqs-v2'
+var cacheName = 'twiqqs-v3'
 var filesToCache = [
   '/',
   '/index.html',

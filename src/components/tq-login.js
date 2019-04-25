@@ -68,6 +68,16 @@ class TqLogin extends HTMLElement {
           display: block;
           min-height: 20px;
         }
+        .btn {
+          padding: var(--space-s) var(--space-m);
+          border: 1px solid var(--light);
+          background: var(--dark);
+          color: var(--light);
+          text-decoration: none;
+        }
+        .btn:hover {
+          background: var(--chocolate);
+        }
       </style>
       ${this.getButton()}
     `

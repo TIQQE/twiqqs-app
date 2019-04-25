@@ -41,9 +41,19 @@ aside {
   height: 100%;
   min-width: 150px;
   max-width: 200px;
+  position: relative;
 }
 
 .container {
   box-sizing: border-box;
   padding: var(--space-m);
+}
+
+tq-login {
+  position: absolute;
+  bottom: var(--space-m);
+  display: block; 
+  text-align: center;
+  left:0;
+  right:0
 }
