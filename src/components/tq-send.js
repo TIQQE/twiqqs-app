@@ -42,7 +42,7 @@ class TqSend extends HTMLElement {
 
   typing(e) {
     if (e.which === 13 && !e.shiftKey) {
-      let message = this.messageBox.value;
+      let message = this.messageBox.value.replace(/(<([^>]+)>)/ig, '')
       let sendMessageEvent = new CustomEvent('sendMessage', { detail: message })
       document.dispatchEvent(sendMessageEvent)
       this.messageBox.value = '';

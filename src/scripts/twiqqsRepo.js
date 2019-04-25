@@ -1,8 +1,37 @@
+export const updateLoginStatus = () => {
+  localStorage.removeItem('jwt')
+  document.querySelector('tq-login').render()
+}
+
+export const getJwt = () => {
+  const jwt = JSON.parse(localStorage.getItem('jwt'))
+  return jwt
+}
+
+export const getIdToken = () => {
+  const jwt = getJwt()
+  if (jwt) {
+    return jwt.id_token
+  } else {
+    return null
+  }
+}
+
+export const getAccessToken = () => {
+  const jwt = getJwt()
+  if (jwt) {
+    return jwt.access_token
+  } else {
+    return null
+  }
+}
+
 export const getTwiqqs = async () => {
+  let idToken = getIdToken()
   const response = await fetch(
     `https://pbkh6aqm1e.execute-api.eu-west-1.amazonaws.com/test/twiqqs/${location.hash.substring(1)}`, {
       headers: {
-        'authorization': JSON.parse(localStorage.getItem('jwt')).id_token
+        'authorization': idToken
       }
     })
   const data = await response.json()
@@ -10,9 +39,10 @@ export const getTwiqqs = async () => {
 }
 
 export const getTopics = async () => {
+  let idToken = getIdToken()
   const response = await fetch('https://pbkh6aqm1e.execute-api.eu-west-1.amazonaws.com/test/topics', {
     headers: {
-      'authorization': JSON.parse(localStorage.getItem('jwt')).id_token
+      'authorization': idToken
     }
   })
   const data = await response.json()
@@ -20,11 +50,11 @@ export const getTopics = async () => {
 }
 
 export const createWebSocketConnection = () => {
-  let jwt = JSON.parse(localStorage.getItem('jwt'));
-  if (!jwt || !jwt.access_token) { return }
+  let accessToken = getAccessToken()
+  if (!accessToken) { return }
 
   // Create WebSocket connection.
-  const socket = new WebSocket(`wss://us9g1zlouc.execute-api.eu-west-1.amazonaws.com/test?access_token=${jwt.access_token}`);
+  const socket = new WebSocket(`wss://us9g1zlouc.execute-api.eu-west-1.amazonaws.com/test?access_token=${accessToken}`);
 
   // Connection opened
   socket.addEventListener('open', (event) => {
@@ -43,13 +73,14 @@ export const createWebSocketConnection = () => {
 
   // Listen for messages
   socket.addEventListener('message', (event) => {
-    console.log('Message from server ', event.data);
+    let data = event.data;
+    console.log('Message from server ', data);
     let messageList = document.querySelector('tq-message-list');
     if (!Array.isArray(messageList.data)) { messageList.data = []; }
     let clone = JSON.parse(JSON.stringify(messageList.data))
 
     // Todo validate that it is a message
-    let message = JSON.parse(event.data);
+    let message = JSON.parse(data);
     clone.push(message);
 
     messageList.data = clone;
