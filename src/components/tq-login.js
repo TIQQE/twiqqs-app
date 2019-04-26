@@ -51,7 +51,7 @@ class TqLogin extends HTMLElement {
 
   getButton() {
     let clientId = '2361f7ndpia7640dqacs83ml1n'
-    let redirect = location.href.indexOf('localhost') ? 'http://localhost:3000' : 'https://d26bupu8rknfjq.cloudfront.net/'
+    let redirect = location.href.indexOf('localhost') > -1 ? 'http://localhost:3000' : 'https://d26bupu8rknfjq.cloudfront.net/'
     if (this.isLoggedIn) {
       return `
       <a class="btn logout" href="https://twiqqs-test.auth.eu-west-1.amazoncognito.com/logout?response_type=token&client_id=${clientId}&redirect_uri=${redirect}">
