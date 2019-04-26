@@ -1,3 +1,4 @@
+import { getTopics } from '../scripts/twiqqsRepo.js';
 class TqNav extends HTMLElement {
   get data() {
     return this._data;
@@ -16,14 +17,21 @@ class TqNav extends HTMLElement {
   }
 
   connectedCallback() {
-    console.log('Connected component')
-    this.nav = this.shadowRoot.querySelector('nav')
+    this.updateData()
     window.addEventListener("hashchange", this.render, false);
   }
 
   disconnectedCallback() {
-    console.log('Disconnected component')
     window.removeEventListener("hashchange", this.render);
+  }
+
+  async updateData() {
+    try {
+      let result = await getTopics()
+      this.data = result
+    } catch (ex) {
+      this.data = [];
+    }
   }
 
   render() {

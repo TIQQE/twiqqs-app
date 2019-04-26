@@ -28,6 +28,7 @@ export const getAccessToken = () => {
 
 export const getTwiqqs = async () => {
   let idToken = getIdToken()
+  if (!idToken) { return Promise.reject(401) }
   const response = await fetch(
     `https://pbkh6aqm1e.execute-api.eu-west-1.amazonaws.com/test/twiqqs/${location.hash.substring(1)}`, {
       headers: {
@@ -40,6 +41,7 @@ export const getTwiqqs = async () => {
 
 export const getTopics = async () => {
   let idToken = getIdToken()
+  if (!idToken) { return Promise.reject(401) }
   const response = await fetch('https://pbkh6aqm1e.execute-api.eu-west-1.amazonaws.com/test/topics', {
     headers: {
       'authorization': idToken

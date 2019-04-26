@@ -28,8 +28,12 @@ class TqMessageList extends HTMLElement {
   }
 
   async updateData() {
-    let result = await getTwiqqs()
-    this.data = result
+    try {
+      let result = await getTwiqqs()
+      this.data = result
+    } catch (ex) {
+      this.data = [];
+    }
   }
 
   disconnectedCallback() {

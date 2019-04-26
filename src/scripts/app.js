@@ -30,6 +30,3 @@ registerServiceWorker()
   });
 
 createWebSocketConnection();
-
-getTopics()
-  .then(data => document.querySelector('tq-nav').data = data);

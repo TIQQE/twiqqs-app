@@ -58,6 +58,7 @@ class TqSend extends HTMLElement {
       document.dispatchEvent(sendMessageEvent)
       this.messageBox.value = '';
       e.preventDefault();
+      this.adjustHeight()
     }
   }
 
