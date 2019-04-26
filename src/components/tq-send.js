@@ -5,6 +5,7 @@ class TqSend extends HTMLElement {
     this._data;
     this.isLoggedIn = false;
     this.render = this.render.bind(this)
+    this.adjustHeight = this.adjustHeight.bind(this)
     this.attachShadow({ mode: 'open' })
     this.init()
     this.render()
@@ -32,15 +33,25 @@ class TqSend extends HTMLElement {
 
   connectedCallback() {
     this.messageBox = this.shadowRoot.querySelector('.message-box')
-    this.messageBox.addEventListener('keypress', this.typing.bind(this))
+    this.messageBox.addEventListener('keyup', this.typing.bind(this))
+    window.addEventListener('resize', this.adjustHeight.bind(this))
   }
   disconnectedCallback() {
     if (this.messageBox) {
-      this.messageBox.removeEventListener('keypress', this.typing)
+      this.messageBox.removeEventListener('keyup', this.typing)
     }
+    window.removeEventListener('resize', this.adjustHeight)
+  }
+
+  adjustHeight() {
+    const height = 36;
+    this.messageBox.style.height = '40px'
+    let calculatedHeight = (height * this.messageBox.scrollHeight / height)
+    this.messageBox.style.height = Math.max(40, calculatedHeight) + 'px'
   }
 
   typing(e) {
+    this.adjustHeight()
     if (e.which === 13 && !e.shiftKey) {
       let message = this.messageBox.value.replace(/(<([^>]+)>)/ig, '')
       let sendMessageEvent = new CustomEvent('sendMessage', { detail: message })
@@ -67,6 +78,7 @@ class TqSend extends HTMLElement {
         border: 2px solid rgba(0,0,0,0.15);
         border-radius: var(--space-s);
         outline:none;
+        overflow:hidden;
       }
       textarea:focus {
         border: 2px solid rgba(0,0,0,0.35);
