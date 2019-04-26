@@ -1,5 +1,5 @@
 var dataCacheName = 'twiqqsData'
-var cacheName = 'twiqqs-v4'
+var cacheName = 'twiqqs-v5'
 var filesToCache = [
   '/',
   '/index.html',
