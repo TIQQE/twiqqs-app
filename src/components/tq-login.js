@@ -24,9 +24,12 @@ class TqLogin extends HTMLElement {
       location.hash = 'random'
       this.isLoggedIn = true;
     } else {
+      location.hash = location.hash.length > 0 ? location.hash : 'random'
       let jwt = JSON.parse(localStorage.getItem('jwt'))
       this.isLoggedIn = !!jwt;
-      console.log(jwt)
+    }
+    if (this.isLoggedIn) {
+      document.dispatchEvent(new CustomEvent('login'))
     }
   }
 
@@ -48,14 +51,15 @@ class TqLogin extends HTMLElement {
 
   getButton() {
     let clientId = '2361f7ndpia7640dqacs83ml1n'
+    let redirect = location.href.indexOf('localhost') ? 'http://localhost:3000' : 'https://d26bupu8rknfjq.cloudfront.net/'
     if (this.isLoggedIn) {
       return `
-      <a class="btn logout" href="https://twiqqs-test.auth.eu-west-1.amazoncognito.com/logout?response_type=token&client_id=${clientId}&redirect_uri=https://d26bupu8rknfjq.cloudfront.net/">
+      <a class="btn logout" href="https://twiqqs-test.auth.eu-west-1.amazoncognito.com/logout?response_type=token&client_id=${clientId}&redirect_uri=${redirect}">
         Logout
       </a>`
     } else {
       return `
-      <a class="btn login" href="https://twiqqs-test.auth.eu-west-1.amazoncognito.com/login?response_type=token&client_id=${clientId}&redirect_uri=https://d26bupu8rknfjq.cloudfront.net/">
+      <a class="btn login" href="https://twiqqs-test.auth.eu-west-1.amazoncognito.com/login?response_type=token&client_id=${clientId}&redirect_uri=${redirect}">
         Login
       </a>`
     }
@@ -79,6 +83,11 @@ class TqLogin extends HTMLElement {
         }
         .btn:hover {
           background: var(--chocolate);
+        }
+        @media only screen and (max-width: 600px) {
+          .btn {
+            padding: var(--space-s);
+          }
         }
       </style>
       ${this.getButton()}

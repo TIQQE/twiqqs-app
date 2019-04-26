@@ -24,7 +24,13 @@ class TqMessageList extends HTMLElement {
   }
   connectedCallback() {
     this.updateData()
-    window.addEventListener("hashchange", this.updateData, false);
+    window.addEventListener('hashchange', this.updateData, false);
+    document.addEventListener('login', this.updateData)
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('hashchange', this.updateData)
+    document.removeEventListener('login', this.updateData)
   }
 
   async updateData() {
@@ -34,10 +40,6 @@ class TqMessageList extends HTMLElement {
     } catch (ex) {
       this.data = [];
     }
-  }
-
-  disconnectedCallback() {
-    window.removeEventListener("hashchange", this.updateData);
   }
 
   getMessageComponents() {

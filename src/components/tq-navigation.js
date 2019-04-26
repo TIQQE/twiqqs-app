@@ -11,18 +11,20 @@ class TqNav extends HTMLElement {
   constructor() {
     super()
     this._data = [{ name: '...', value: '...', class: 'skeleton' }, { name: '...', value: '...', class: 'skeleton' }, { name: '...', value: '...', class: 'skeleton' }]
+    this.updateData = this.updateData.bind(this)
     this.render = this.render.bind(this)
     this.attachShadow({ mode: 'open' })
     this.render()
   }
 
   connectedCallback() {
-    this.updateData()
     window.addEventListener("hashchange", this.render, false);
+    document.addEventListener("login", this.updateData);
   }
 
   disconnectedCallback() {
     window.removeEventListener("hashchange", this.render);
+    document.addEventListener("login", this.updateData);
   }
 
   async updateData() {
