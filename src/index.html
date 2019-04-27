@@ -53,21 +53,24 @@
 </head>
 
 <body>
-  <tq-topbar></tq-topbar>
-  <main id="content-container">
-    <button class="menu-toggle" onclick="document.querySelector('aside').classList.toggle('show')">
+  <div id="content-container">
+    <button aria-label="menu-toggle" class="menu-toggle"
+      onclick="document.querySelector('#side').classList.toggle('show')">
       <div></div>
       <div></div>
       <div></div>
     </button>
-    <aside class="container">
+    <div id="topbar">
+      <tq-topbar></tq-topbar>
+    </div>
+    <div id="side">
       <tq-nav></tq-nav>
-    </aside>
-    <div class='container'>
+    </div>
+    <div id="content">
       <tq-message-list></tq-message-list>
       <tq-send></tq-send>
     </div>
-  </main>
+  </div>
   <script type="module" src="scripts/app.js" async></script>
 </body>
 

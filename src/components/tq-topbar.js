@@ -47,10 +47,13 @@ class TqTopbar extends HTMLElement {
           .btn {
             padding: var(--space-s);
           }
+          img {
+            visibility: hidden;
+          }
         }
       </style>
       <div class="topbar">
-        <img class="app-icon" src="images/icons/icon-72x72.png" />
+        <img alt="twiqqs logo" class="app-icon" src="images/icons/icon-72x72.png" />
         <tq-login></tq-login>
       </div>
     `

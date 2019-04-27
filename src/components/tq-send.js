@@ -54,7 +54,7 @@ class TqSend extends HTMLElement {
     this.shadowRoot.innerHTML = `
     <style>
       .message-box {
-        height: auto;
+        height: 50px;
         width: 100%;
         resize: none;
         font-family: 'Roboto', sans-serif;
