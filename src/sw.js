@@ -1,24 +1,36 @@
-var dataCacheName = 'twiqqsData'
-var cacheName = 'twiqqs-v5'
-var filesToCache = [
-  '/',
-  '/index.html',
-  '/scripts/app.js',
-  '/styles/main.css'
+let dataCacheName = 'twiqqsData'
+let cacheName = 'twiqqs'
+let filesToCache = [
+  'https://fonts.googleapis.com/css?family=Roboto:100,300,700',
+  '/images/icons/icon-72x72.png',
+  '/images/icons/icon-96x96.png',
+  '/images/icons/icon-128x128.png',
+  '/images/icons/icon-144x144.png',
+  '/images/icons/icon-152x152.png',
+  '/images/icons/icon-192x192.png',
+  '/images/icons/icon-384x384.png',
+  '/images/icons/icon-384x384.png',
+  '/images/icons/icon-512x512.png',
+  '/images/man.png'
 ]
 
 self.addEventListener('install', (e) => {
   console.log('[ServiceWorker] Install')
+  self.skipWaiting();
   e.waitUntil(
-    caches.open(cacheName).then(function (cache) {
+    caches.open(cacheName).then(async (cache) => {
       console.log('[ServiceWorker] Caching app shell')
-      return cache.addAll(filesToCache)
+      try {
+        let result = await cache.addAll(filesToCache)
+        return result;
+      } catch (ex) {
+        console.log(ex)
+      }
     })
   )
 })
 
 self.addEventListener('activate', function (e) {
-  console.log('[ServiceWorker] Activate')
   e.waitUntil(
     caches.keys().then(function (keyList) {
       return Promise.all(keyList.map(function (key) {
@@ -33,8 +45,7 @@ self.addEventListener('activate', function (e) {
 })
 
 self.addEventListener('fetch', (e) => {
-  console.log('[Service Worker] Fetch', e.request.url)
-  var dataUrl = 'https://pbkh6aqm1e.execute-api.eu-west-1.amazonaws.com/test/twiqqs/something'
+  let dataUrl = 'https://pbkh6aqm1e.execute-api.eu-west-1.amazonaws.com/test/twiqqs/'
   if (e.request.url.indexOf(dataUrl) > -1) {
     /*
      * When the request URL contains dataUrl, the app is asking for fresh data.
@@ -66,16 +77,16 @@ self.addEventListener('fetch', (e) => {
 })
 
 self.addEventListener('notificationclose', (e) => {
-  var notification = e.notification;
-  var primaryKey = notification.data.primaryKey;
+  let notification = e.notification;
+  let primaryKey = notification.data.primaryKey;
 
   console.log('Closed notification: ' + primaryKey);
 });
 
 self.addEventListener('notificationclick', (e) => {
-  var notification = e.notification;
-  var primaryKey = notification.data.primaryKey;
-  var action = e.action;
+  let notification = e.notification;
+  let primaryKey = notification.data.primaryKey;
+  let action = e.action;
 
   if (action === 'close') {
     notification.close();

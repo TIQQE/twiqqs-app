@@ -46,10 +46,13 @@ class TqMessageList extends HTMLElement {
     if (!this.data) { return '' }
     let html = '';
     for (let data of this.data) {
-      let name = data.messageId ? data.messageId.split('@')[0] : 'Jane Doe'
+      let name = data.messageId ? data.messageId
+        .split('#')[1]
+        .split('@')[0] :
+        'Jane Doe'
       let msg = {
         user: { name, img: 'images/man.png' },
-        message: { created: new Date(data.messageId.split('#')[1]).toUTCString(), content: data.message }
+        message: { created: new Date(data.messageId.split('#')[0]).toUTCString(), content: data.message }
       }
       msg = encodeURI(JSON.stringify(msg));
       html += `<tq-message data="${msg}"></tq-message>`;

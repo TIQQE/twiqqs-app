@@ -1,6 +1,6 @@
+import { } from '../components/tq-topbar.js';
 import { } from '../components/tq-navigation.js';
 import { } from '../components/tq-message-list.js';
-import { } from '../components/tq-login.js';
 import { } from '../components/tq-send.js';
 import { getTopics, createWebSocketConnection } from './twiqqsRepo.js';
 import { displayNotification, registerServiceWorker, initPush } from './serviceWorkerHelper.js';

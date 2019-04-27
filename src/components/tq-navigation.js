@@ -12,6 +12,7 @@ class TqNav extends HTMLElement {
     super()
     this._data = [{ name: '...', value: '...', class: 'skeleton' }, { name: '...', value: '...', class: 'skeleton' }, { name: '...', value: '...', class: 'skeleton' }]
     this.updateData = this.updateData.bind(this)
+    this.updateData()
     this.render = this.render.bind(this)
     this.attachShadow({ mode: 'open' })
     this.render()
@@ -43,6 +44,7 @@ class TqNav extends HTMLElement {
           display: block;
           overflow-x: hidden;
           background-color: var(--dark, black);
+          margin-bottom: 16px;
         }
         a:first-child {
           margin-top: var(--space-s);
@@ -67,7 +69,35 @@ class TqNav extends HTMLElement {
           color: transparent;
           position: relative;
         }
+        .title {
+          font-weight: 100;
+          font-size: 16px;
+          padding: 0 var(--space-s);
+          white-space: nowrap;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          justify-items: center;
+        }
+        .title button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-left: 8px;
+          background: none;
+          border-radius: 50%;
+          width: 20px;
+          height: 20px;
+          color: #fff;
+          text-align: center;
+          cursor: pointer;
+        }
+        .title button span {
+          width: 20px;
+          height: 20px;
+        }
       </style>
+      <div class="title">Channels<button><span>+</span></button></div>
       <nav>
       ${(() => {
         let topic = location.hash.substring(1).trim();
@@ -77,7 +107,9 @@ class TqNav extends HTMLElement {
         }
         return html;
       })()}
-      </nav >`
+      </nav>
+      <div class="title">Users</div>
+      `
   }
 }
 export default customElements.define('tq-nav', TqNav)

@@ -26,14 +26,14 @@ body {
   grid-template-columns: auto 1fr;
   grid-gap: 10px;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 56px);
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
-h1 {
+h1, h3 {
   margin: 0;
   padding: var(--space-s);
-  text-decoration: underline;
+  font-weight: 300;
 }
 
 aside {
@@ -42,7 +42,11 @@ aside {
   box-sizing: border-box;
   height: 100%;
   position: relative;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
 }
+
 .menu-toggle {
   display: none;
   width: 40px;
@@ -68,7 +72,7 @@ aside {
 .container {
   box-sizing: border-box;
   position: relative;
-  height: 100vh;
+  height: calc(100vh - 56px);
 }
 
 tq-login {
@@ -117,7 +121,7 @@ tq-message-list {
   #content-container {
     grid-gap: 0;
   }
-  h1 {
+  h1, h3 {
     padding: 0;
     margin: 0;
   }
