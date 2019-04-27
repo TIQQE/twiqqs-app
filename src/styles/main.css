@@ -16,14 +16,14 @@ body {
   font-weight: 300;
   margin: 0;
   padding: 0;
-  background: var(--dark);
-  color: var(--light);
 }
 
 #content-container {
+  overflow: hidden;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: 56px auto;
+  position: absolute;
   height: 100vh;
   width: 100vw;
   background: var(--light);
@@ -110,7 +110,7 @@ tq-message-list {
 /* Small screens */
 @media only screen and (max-width: 600px) {
   #side {
-    width: 0;
+    width: 1px; /* needed for iphone otherwise strange ui bug */
     transition: .3s width cubic-bezier(0.075, 0.82, 0.165, 1);
   }
   .menu-toggle {
@@ -138,5 +138,9 @@ tq-message-list {
     bottom: 1px;
     left: 1px;
     right: 21px;
+  }
+  /* ios/android specific rules */
+  .on-device tq-send {
+    bottom: 30px;
   }
 }
