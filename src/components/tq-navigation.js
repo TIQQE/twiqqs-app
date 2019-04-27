@@ -19,13 +19,14 @@ class TqNav extends HTMLElement {
   }
 
   connectedCallback() {
-    window.addEventListener("hashchange", this.render, false);
-    document.addEventListener("login", this.updateData);
+    window.addEventListener("hashchange", this.render, false)
+    document.addEventListener("login", this.updateData)
   }
 
   disconnectedCallback() {
-    window.removeEventListener("hashchange", this.render);
-    document.addEventListener("login", this.updateData);
+    window.removeEventListener("hashchange", this.render)
+    document.addEventListener("login", this.updateData)
+    this.createChannelBtn.removeEventListener('click', this.createChannel)
   }
 
   async updateData() {
@@ -35,6 +36,10 @@ class TqNav extends HTMLElement {
     } catch (ex) {
       this.data = [];
     }
+  }
+
+  createChannel() {
+    console.log('Build a create channel modal and insert it')
   }
 
   render() {
@@ -97,7 +102,7 @@ class TqNav extends HTMLElement {
           height: 20px;
         }
       </style>
-      <div class="title">Channels<button><span>+</span></button></div>
+      <div class="title">Channels<button aria-label="create channel" class="create-channel-btn"><span>+</span></button></div>
       <nav>
       ${(() => {
         let topic = location.hash.substring(1).trim();
@@ -110,6 +115,9 @@ class TqNav extends HTMLElement {
       </nav>
       <div class="title">Users</div>
       `
+    this.createChannelBtn = this.shadowRoot.querySelector('.create-channel-btn')
+    this.createChannelBtn.removeEventListener('click', this.createChannel)
+    this.createChannelBtn.addEventListener('click', this.createChannel.bind(this))
   }
 }
 export default customElements.define('tq-nav', TqNav)
