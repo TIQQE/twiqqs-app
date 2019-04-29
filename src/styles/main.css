@@ -110,7 +110,7 @@ tq-message-list {
 
 @media only screen and (min-width: 601px) {
   #side {
-    /*idth: 152px;*/
+    width: 152px;
   }
 }
 

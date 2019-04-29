@@ -102,6 +102,12 @@ class TqNav extends HTMLElement {
           width: 20px;
           height: 20px;
         }
+        .users {
+          padding: 0;
+        }
+        .users li {
+          list-style: none;
+        }
       </style>
       <div class="title">Channels<button aria-label="create channel" class="create-channel-btn"><span>+</span></button></div>
       <nav>
@@ -117,12 +123,16 @@ class TqNav extends HTMLElement {
       <br>
       <div class='users'>
       <div class="title">Users</div>
-      ${(() => {
+      <ul class='users'>
+        ${(() => {
         if (!Array.isArray(this.users)) { return '' }
         let html;
-        html = this.users.join("<br>");
+        html = this.users.map(user => {
+          return `<li>${user.split('@')[0]}</li>`
+        })
         return html;
       })()}
+      </ul>
       </div>
       `
     this.createChannelBtn = this.shadowRoot.querySelector('.create-channel-btn')
