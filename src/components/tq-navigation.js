@@ -114,14 +114,13 @@ class TqNav extends HTMLElement {
         return html;
       })()}
       </nav>
+      <br>
       <div class='users'>
       <div class="title">Users</div>
       ${(() => {
         if (!Array.isArray(this.users)) { return '' }
         let html;
-        for (let user of this.users) {
-          html += user.split('@')[0] + '<br>'
-        }
+        html = this.users.join("<br>");
         return html;
       })()}
       </div>
