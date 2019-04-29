@@ -1,3 +1,5 @@
+import { env } from './env.js'
+
 export const updateLoginStatus = () => {
   localStorage.removeItem('jwt')
   document.querySelector('tq-login').render()
@@ -30,7 +32,7 @@ export const getTwiqqs = async () => {
   let idToken = getIdToken()
   if (!idToken) { return Promise.reject(401) }
   const response = await fetch(
-    `https://pbkh6aqm1e.execute-api.eu-west-1.amazonaws.com/test/twiqqs/${location.hash.substring(1)}`, {
+    `${env.twiqqsApi}/twiqqs/${location.hash.substring(1)}`, {
       headers: {
         'authorization': idToken
       }
@@ -42,7 +44,19 @@ export const getTwiqqs = async () => {
 export const getTopics = async () => {
   let idToken = getIdToken()
   if (!idToken) { return Promise.reject(401) }
-  const response = await fetch('https://pbkh6aqm1e.execute-api.eu-west-1.amazonaws.com/test/topics', {
+  const response = await fetch(`${env.twiqqsApi}/topics`, {
+    headers: {
+      'authorization': idToken
+    }
+  })
+  const data = await response.json()
+  return data
+}
+
+export const getUsers = async () => {
+  let idToken = getIdToken()
+  if (!idToken) { return Promise.reject(401) }
+  const response = await fetch(`${env.twiqqsApi}/connections`, {
     headers: {
       'authorization': idToken
     }
@@ -56,7 +70,7 @@ export const createWebSocketConnection = () => {
   if (!accessToken) { return }
 
   // Create WebSocket connection.
-  const socket = new WebSocket(`wss://us9g1zlouc.execute-api.eu-west-1.amazonaws.com/test?access_token=${accessToken}`);
+  const socket = new WebSocket(`${env.webSockets}?access_token=${accessToken}`);
 
   // Connection opened
   socket.addEventListener('open', (event) => {

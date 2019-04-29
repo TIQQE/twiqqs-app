@@ -1,4 +1,4 @@
-import { getTopics } from '../scripts/twiqqsRepo.js';
+import { getTopics, getUsers } from '../scripts/twiqqsRepo.js';
 class TqNav extends HTMLElement {
   get data() {
     return this._data;
@@ -31,8 +31,9 @@ class TqNav extends HTMLElement {
 
   async updateData() {
     try {
-      let result = await getTopics()
-      this.data = result
+      let topics = await getTopics()
+      this.users = await getUsers()
+      this.data = topics
     } catch (ex) {
       this.data = [];
     }
@@ -113,7 +114,17 @@ class TqNav extends HTMLElement {
         return html;
       })()}
       </nav>
+      <div class='users'>
       <div class="title">Users</div>
+      ${(() => {
+        if (!Array.isArray(this.users)) { return '' }
+        let html;
+        for (let user of this.users) {
+          html += user.split('@')[0] + '<br>'
+        }
+        return html;
+      })()}
+      </div>
       `
     this.createChannelBtn = this.shadowRoot.querySelector('.create-channel-btn')
     this.createChannelBtn.removeEventListener('click', this.createChannel)
