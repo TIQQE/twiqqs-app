@@ -42,7 +42,30 @@ class TqMessageList extends HTMLElement {
     }
   }
 
-  getMessageComponents() {
+  existingPeople = {}
+
+
+  async getPersonImg(name) {
+    var self = this;
+    if(Object.keys(this.existingPeople).includes(name)) return this.existingPeople[name];
+    return fetch('https://picsum.photos/200', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error('Bad status code from server.');
+        }
+        console.log(self.existingPeople);
+        self.existingPeople[name] = response.url;
+        return response.url
+      })
+  }
+
+  async getMessageComponents() {
+    console.log(await this.getPersonImg());
     if (!this.data) { return '' }
     let html = '';
     for (let data of this.data) {
@@ -51,7 +74,7 @@ class TqMessageList extends HTMLElement {
         .split('@')[0] :
         'Jane Doe'
       let msg = {
-        user: { name, img: 'images/man.png' },
+        user: { name, img: await this.getPersonImg(name) },
         message: { created: new Date(data.messageId.split('#')[0]).toUTCString(), content: data.message }
       }
       msg = encodeURI(JSON.stringify(msg));
@@ -60,7 +83,7 @@ class TqMessageList extends HTMLElement {
     return html;
   }
 
-  render() {
+  async render() {
     this.shadowRoot.innerHTML = `
       <style>
         div {
@@ -68,7 +91,7 @@ class TqMessageList extends HTMLElement {
           min-height: 20px;
         }
       </style>
-      ${this.getMessageComponents()}
+      ${await this.getMessageComponents()}
       `
   }
 }
