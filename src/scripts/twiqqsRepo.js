@@ -1,4 +1,5 @@
 import { env } from './env.js'
+import { displayNotification } from './serviceWorkerHelper.js'
 
 export const updateLoginStatus = () => {
   localStorage.removeItem('jwt')
@@ -65,6 +66,24 @@ export const getUsers = async () => {
   return data
 }
 
+const showNewMessageNotification = (message) => {
+  try {
+    let tokenInfo = JSON.parse(atob(getAccessToken().split('.')[1]))
+    //if (message.messageId.indexOf(tokenInfo.email) !== -1) { return }
+    displayNotification(`New message in ${message.topic}`, {
+      body: message.message,
+      icon: 'images/icons/icon-192x192.png',
+      vibrate: [100, 50, 100],
+      data: {
+        dateOfArrival: new Date(message.messageId.split('#')[0]),
+        message
+      }
+    });
+  } catch (ex) {
+    console.log(ex)
+  }
+}
+
 export const createWebSocketConnection = () => {
   let accessToken = getAccessToken()
   if (!accessToken) { return }
@@ -97,6 +116,7 @@ export const createWebSocketConnection = () => {
 
     // Todo validate that it is a message
     let message = JSON.parse(data);
+    showNewMessageNotification(message);
     clone.push(message);
 
     messageList.data = clone;

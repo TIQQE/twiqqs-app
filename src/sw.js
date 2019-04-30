@@ -85,13 +85,12 @@ self.addEventListener('notificationclose', (e) => {
 
 self.addEventListener('notificationclick', (e) => {
   let notification = e.notification;
-  let primaryKey = notification.data.primaryKey;
   let action = e.action;
 
   if (action === 'close') {
     notification.close();
   } else {
-    clients.openWindow('http://www.example.com');
+    clients.openWindow(`${self.origin}/#${notification.data.message.topic}`);
     notification.close();
   }
 });
